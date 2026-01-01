@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-config(); // load .env variables
+config();
 
 import { createClient } from '@supabase/supabase-js';
 
