@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
-import { supabase } from '../lib/supabase';
+// controllers/test.controller.js
+const { supabase } = require('../lib/supabase');
 
-export const testSupabase = async (_: Request, res: Response) => {
+const testSupabase = async (_, res) => {
   const { data, error } = await supabase
     .from('brands')
     .select('*')
@@ -18,4 +18,8 @@ export const testSupabase = async (_: Request, res: Response) => {
     message: 'Supabase connected ✅',
     data
   });
+};
+
+module.exports = {
+  testSupabase
 };
