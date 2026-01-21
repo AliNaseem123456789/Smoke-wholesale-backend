@@ -22,14 +22,14 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:5173","https://acetonic-humilis-lino.ngrok-free.dev",
+    origin: "https://acetonic-humilis-lino.ngrok-free.dev",
     credentials: true,
-  })
+  }),
 );
 
 const logRequest = (req, res, next) => {
   console.log(
-    `${new Date().toLocaleString()} Request made to: ${req.originalUrl}`
+    `${new Date().toLocaleString()} Request made to: ${req.originalUrl}`,
   );
   next();
 };
