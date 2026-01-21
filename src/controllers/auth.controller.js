@@ -35,8 +35,8 @@ const login = async (req, res) => {
     const accessToken = generateAccessToken(user);
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      sameSite: "lax",
-      secure: false,
+      sameSite: "none",
+      secure: true,
       path: "/",
     });
 
@@ -98,8 +98,8 @@ const register = async (req, res) => {
     const token = generateAccessToken(user);
     res.cookie("accessToken", token, {
       httpOnly: true,
-      sameSite: "lax",
-      secure: false,
+      sameSite: "none",
+      secure: true,
       path: "/",
     });
 
@@ -120,7 +120,6 @@ const register = async (req, res) => {
 
 const me = async (req, res) => {
   try {
-
     const { data: user, error: userError } = await supabase
       .from("users")
       .select("*")
@@ -162,8 +161,8 @@ const me = async (req, res) => {
 const logout = async (req, res) => {
   res.clearCookie("accessToken", {
     httpOnly: true,
-    sameSite: "lax",
-    secure: false,
+    sameSite: "none",
+    secure: true,
     path: "/",
   });
   res.status(200).json({ message: "Logged out successfully" });
