@@ -22,7 +22,10 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://acetonic-humilis-lino.ngrok-free.dev",
+    origin:
+      "https://smoke-wholesale-kxuk-4j95gqy60-ali-naseems-projects-305588ff.vercel.app/",
+    // origin: "http://localhost:5173",
+    // origin: "https://acetonic-humilis-lino.ngrok-free.dev",
     credentials: true,
   }),
 );
