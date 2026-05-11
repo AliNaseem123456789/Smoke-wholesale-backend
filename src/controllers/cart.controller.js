@@ -18,7 +18,7 @@ const fetchCartProducts = async (req, res) => {
         flavors,
         categories
       )
-    `
+    `,
     )
     .eq("user_id", user_id);
 
@@ -30,7 +30,6 @@ const fetchCartProducts = async (req, res) => {
     });
   }
   // console.log("Joined Data Sample:", data[0]);
-
   res.status(200).json(data);
 };
 const addToCart = async (req, res) => {

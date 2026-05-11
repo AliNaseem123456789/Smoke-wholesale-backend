@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const upload = multer({ storage: multer.memoryStorage() }); // Store in RAM temporarily
+const upload = multer({ storage: multer.memoryStorage() });
 
 const { verifyTokenFromCookie } = require("../jwt");
 

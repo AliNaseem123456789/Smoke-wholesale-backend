@@ -42,26 +42,20 @@ const fetchProductsByCategory = async (req, res) => {
     if (!req.params.category) {
       return res.status(400).json({ message: "Category is required" });
     }
-
     const rawCategory = decodeURIComponent(req.params.category);
     const normalizedInput = normalizeText(rawCategory);
-
     const { data, error } = await supabase.from("products").select("*");
-
     if (error) {
       return res.status(500).json({
         message: "Supabase error",
         error: error.message,
       });
     }
-
     if (!data || data.length === 0) {
       return res.status(404).json({ message: "No products found" });
     }
-
     const filtered = data.filter((p) => {
       if (!Array.isArray(p.categories)) return false;
-
       return p.categories.some((cat) => {
         if (typeof cat !== "string") return false;
         const normalizedCategory = normalizeText(cat);
@@ -94,7 +88,7 @@ const fetchHomeProducts = async (_, res) => {
         .select("*")
         .order("created_at", { ascending: false })
         .limit(10),
-      supabase.from("products").select("*").range(15, 24), // Offset for best sellers
+      supabase.from("products").select("*").range(15, 24),
     ]);
     if (featuredRes.error || newArrivalsRes.error || bestSellersRes.error) {
       return res.status(500).json({ message: "Supabase error" });

@@ -57,7 +57,6 @@ const addSubAccount = async (req, res) => {
       ])
       .select()
       .single();
-
     if (userError) {
       console.error("Supabase User Error:", userError);
       return res
@@ -71,7 +70,6 @@ const addSubAccount = async (req, res) => {
         permissions: { can_place_order: true },
       },
     ]);
-
     if (subError) {
       console.error("Supabase SubAccount Error:", subError);
       await supabase.from("users").delete().eq("id", newUser.id);
@@ -80,7 +78,6 @@ const addSubAccount = async (req, res) => {
         error: subError,
       });
     }
-
     res.status(201).json({ message: "Subaccount created successfully" });
   } catch (error) {
     console.error("General Error:", error);
@@ -107,7 +104,6 @@ const getMySubAccounts = async (req, res) => {
       `,
       )
       .eq("parent_id", ownerId);
-
     if (error) throw error;
     res.status(200).json({ data });
   } catch (err) {
@@ -121,7 +117,6 @@ const updateSubAccountPermission = async (req, res) => {
   try {
     const { subAccountId, canPlaceOrder } = req.body;
     const ownerId = req.user.id;
-
     const { data, error } = await supabase
       .from("sub_accounts")
       .update({
@@ -129,7 +124,6 @@ const updateSubAccountPermission = async (req, res) => {
       })
       .match({ id: subAccountId, parent_id: ownerId })
       .select();
-
     if (error) throw error;
     res.json({ message: "Permissions updated", data });
   } catch (err) {
@@ -140,15 +134,12 @@ const getMyCreditHistory = async (req, res) => {
   try {
     // req.user.id is populated by your JWT middleware
     const userId = req.user.id;
-
     const { data, error } = await supabase
       .from("credit_history")
       .select("*")
       .eq("user_id", userId)
       .order("created_at", { ascending: false });
-
     if (error) throw error;
-
     res.status(200).json(data);
   } catch (error) {
     console.error("Credit History Error:", error);

@@ -1,4 +1,3 @@
-// server.js
 const app = require("./app");
 const listEndpoints = require("express-list-endpoints");
 const PORT = 5000;

@@ -18,7 +18,7 @@ const checkout = async (req, res) => {
     quantity,
     product_id,
     products ( id, title )
-  `
+  `,
       )
       .eq("user_id", userId);
     console.log("Cart Items found for checkout:", cartItems?.length);
@@ -95,7 +95,7 @@ const getUserOrders = async (req, res) => {
           price_at_time,
           products ( title, url )
         )
-      `
+      `,
       )
       .eq("user_id", userId)
       .order("created_at", { ascending: false });
@@ -108,21 +108,17 @@ const getUserOrders = async (req, res) => {
       .json({ message: "Error fetching orders", error: err.message });
   }
 };
-
 const fetchPaymentHistory = async (req, res) => {
   const user_id = req.user.id;
-
   const { data, error } = await supabase
     .from("payment_history")
     .select(
-      `id, amount, transaction_id, status, created_at, order_id, orders(id, status)`
+      `id, amount, transaction_id, status, created_at, order_id, orders(id, status)`,
     )
     .eq("user_id", user_id);
   console.log(data);
   if (error) return res.status(400).json({ error: error.message });
-
   console.log("Found Payments:", data);
-  // Check your terminal for this!
-  res.status(200).json({ data: data || [] }); // Ensure data is at least an empty array
+  res.status(200).json({ data: data || [] });
 };
 module.exports = { checkout, getUserOrders, fetchPaymentHistory };

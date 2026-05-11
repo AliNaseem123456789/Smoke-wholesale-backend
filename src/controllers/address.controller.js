@@ -1,15 +1,12 @@
 const { supabase } = require("../lib/supabase");
-
 const fetchUserAddresses = async (req, res) => {
   try {
     const userId = req.user.id;
-
     const { data, error } = await supabase
       .from("addresses")
       .select("*")
       .eq("user_id", userId)
       .order("is_default", { ascending: false });
-
     if (error) {
       return res.status(500).json({
         message: "Supabase error",
@@ -87,19 +84,16 @@ const deleteAddress = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.user.id;
-
     const { error } = await supabase
       .from("addresses")
       .delete()
       .eq("id", id)
       .eq("user_id", userId);
-
     if (error) {
       return res
         .status(500)
         .json({ message: "Supabase error", error: error.message });
     }
-
     res.json({ message: "Address deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
@@ -120,15 +114,12 @@ const setDefaultAddress = async (req, res) => {
       .eq("user_id", userId)
       .select()
       .single();
-
     if (error) return res.status(500).json({ error: error.message });
-
-    res.json({ message: "Default address updated ✅", data });
+    res.json({ message: "Default address updated", data });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
 };
-
 module.exports = {
   fetchUserAddresses,
   addUserAddress,
